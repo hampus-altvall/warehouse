@@ -1,1 +1,4 @@
 # warehouse
+
+## Run
+`sbt run`
