@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package com.github.warehouse;
+
+message Article {
+    required string art_id = 1;
+    required string name = 2;
+    required string stock = 3;
+}

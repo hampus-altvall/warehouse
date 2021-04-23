@@ -1,4 +1,6 @@
 # warehouse
 
-## Run
-`sbt run`
+## Setup
+`$ sbt compile`
+
+`$ sbt run`
