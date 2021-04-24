@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package com.github.hampusaltvall.warehouse;
+
+import "com/github/hampusaltvall/warehouse/article.proto";
+
+message Inventory {
+    repeated Article inventory = 1;
+}

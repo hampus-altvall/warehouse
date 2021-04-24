@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package com.github.warehouse;
+package com.github.hampusaltvall.warehouse;
 
 message Article {
     required string art_id = 1;
