@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package com.github.hampusaltvall.warehouse;
+
+message ContainArticles {
+    required string art_id = 1;
+    required string amount_of = 2;
+}

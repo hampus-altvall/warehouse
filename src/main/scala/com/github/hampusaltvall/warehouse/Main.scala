@@ -1,35 +1,11 @@
 package com.github.hampusaltvall.warehouse
 
-import com.github.hampusaltvall.warehouse.inventory.Inventory
-import scalapb.json4s.JsonFormat
+import com.github.hampusaltvall.warehouse.WarehouseLoader.{loadInventory, loadProducts}
 
 object Main extends App {
-  val proto: Inventory = JsonFormat.fromJsonString[Inventory](
-    """{
-      |  "inventory": [
-      |    {
-      |      "art_id": "1",
-      |      "name": "leg",
-      |      "stock": "12"
-      |    },
-      |    {
-      |      "art_id": "2",
-      |      "name": "screw",
-      |      "stock": "17"
-      |    },
-      |    {
-      |      "art_id": "3",
-      |      "name": "seat",
-      |      "stock": "2"
-      |    },
-      |    {
-      |      "art_id": "4",
-      |      "name": "table top",
-      |      "stock": "1"
-      |    }
-      |  ]
-      |}
-      |""".stripMargin)
+  val inventory = loadInventory("src/test/resources/inventory.json")
+  val products = loadProducts("src/test/resources/products.json")
 
-  println(proto.inventory.map(_.name).mkString(", "))
+  println(inventory.inventory.map(_.name).mkString(", "))
+  println(products.products.map(_.name).mkString(", "))
 }
