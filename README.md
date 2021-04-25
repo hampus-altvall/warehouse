@@ -36,3 +36,10 @@ Run jar (assumes scala 2.11.12):
 
 `scala target/scala-2.11/warehouse-assembly-0.1-SNAPSHOT.jar --inventory-path "/path/to/inventory.json" --products-path "/path/to/products.json"
 `
+
+## Future plans
+I had some plans that I did not have time for:
+
+1. Use docker-compose to create two images, one that is this project, and another to host a mongoDB to host the protobufs I parsed from the json files.
+
+2. Also, it would be better rewrite this app to a rest api (possibly with a default swagger page) and use scala play app to talk to the mongoDB.
