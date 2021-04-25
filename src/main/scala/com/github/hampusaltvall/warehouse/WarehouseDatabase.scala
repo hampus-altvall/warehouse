@@ -23,11 +23,12 @@ class WarehouseDatabase(inventory: Inventory, products: Products) {
   // lists available items based on current inventory.
   // Each products availability is calculated independently of other products using inventory.
   // TODO: cache result until an item is sold
-  def listAllAvailableItems(): Unit = {
-    products.products.foreach(product => println(product.name + ": " + getNumAvailable(product)))
+  def listAllAvailableItems(): String = {
+    products.products.map(product => product.name + ": " + getNumAvailable(product))
+      .mkString("\n")
   }
 
-  def sellItem(productName: String): Unit = {
+  def sellItem(productName: String): String = {
     val productId = productName.toLowerCase
 
     products.products.find(_.name.toLowerCase == productId) match {
@@ -55,9 +56,9 @@ class WarehouseDatabase(inventory: Inventory, products: Products) {
         }
         if (canSell) {
           inventoryMap = newInventoryMap
-          println("Sold (1) " + productId)
-        } else println("Can't sell product. Not enough stock.")
-      case _ => println("Product name not found. Use command list to see name of products.")
+          "Sold (1) " + productName
+        } else "Can't sell " + productName + ". Not enough stock."
+      case _ => "Product name not found. Use command list to see name of products."
     }
   }
 }

@@ -20,10 +20,10 @@ object Main extends App {
   Iterator.continually(io.StdIn.readLine)
     .takeWhile(_ != "q")
     .foreach{
-      case "list" => warehouseDB.listAllAvailableItems()
+      case "list" => println(warehouseDB.listAllAvailableItems())
       case "sell" =>
         println("Please enter product name: ")
-        warehouseDB.sellItem(io.StdIn.readLine)
+        println(warehouseDB.sellItem(io.StdIn.readLine))
       case "help" => println(help.mkString("\n"))
       case _ => println("Command not recognized. Enter help to see available commands.")
     }
