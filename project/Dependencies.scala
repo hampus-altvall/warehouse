@@ -3,8 +3,8 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val scalaPB = "0.11.1"
-    val scalaPBJson4s = "0.11.0"
+    val scalaPB = "0.9.8"
+    val scalaPBJson4s = "0.10.0"
     val scalaTest = "3.2.7"
     val scallop = "4.0.2"
   }

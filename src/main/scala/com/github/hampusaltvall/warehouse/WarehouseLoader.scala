@@ -3,12 +3,12 @@ package com.github.hampusaltvall.warehouse
 import com.github.hampusaltvall.warehouse.inventory.Inventory
 import com.github.hampusaltvall.warehouse.products.Products
 import scalapb.json4s.JsonFormat
-import scalapb.{GeneratedMessage, GeneratedMessageCompanion}
+import scalapb.{GeneratedMessage, GeneratedMessageCompanion, Message}
 
 import scala.io.Source
 
 trait WarehouseLoader {
-  private def loadJson[A <: GeneratedMessage : GeneratedMessageCompanion](path: String): A = {
+  private def loadJson[A <: GeneratedMessage with Message[A] : GeneratedMessageCompanion](path: String): A = {
     val bufferedSource = Source.fromFile(path)
     val res = JsonFormat.fromJsonString[A](bufferedSource.getLines.mkString)
     bufferedSource.close
