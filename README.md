@@ -3,4 +3,6 @@
 ## Setup
 `$ sbt compile`
 
-`$ sbt run`
+## Run
+`$ sbt "run --inventory-path /path/to/inventory.json --products-path /path/to/products.json"`
+
