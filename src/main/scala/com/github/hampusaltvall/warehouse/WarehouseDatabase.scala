@@ -15,8 +15,8 @@ class WarehouseDatabase(inventory: Inventory, products: Products) {
       val amountOf = ca.amountOf.toInt
 
       inventoryMap
-        .find(_._1 == ca.artId)
-        .map(_._2 / amountOf)
+        .find { case (artId, _) => artId == ca.artId }
+        .map { case (_, stock) => stock / amountOf }
         .getOrElse(0)
     }.min).getOrElse(0)
 
@@ -28,27 +28,36 @@ class WarehouseDatabase(inventory: Inventory, products: Products) {
   }
 
   def sellItem(productName: String): Unit = {
-    val productId = productName.split(" ") // Remove "Sell " from command, generous assumption about spaced product names about product names here.
-      .drop(1)
-      .mkString(" ")
-      .toLowerCase
+    val productId = productName.toLowerCase
 
-    // TODO: make sure we can sell before modifying
     products.products.find(_.name.toLowerCase == productId) match {
-      case Some(product) => product.containArticles.foreach { ca =>
-        val artId = ca.artId
+      case Some(product) =>
+        var canSell = true
+        var newInventoryMap = inventoryMap
 
-        inventoryMap = inventoryMap.map { article =>
-          if (article._1 == artId) {
-            article._1 -> (article._2 - ca.amountOf.toInt)
-          } else {
-            article
+        product.containArticles.foreach { ca =>
+          val artId = ca.artId
+
+          newInventoryMap = inventoryMap.map { case (inventoryArtId, stock) =>
+            if (inventoryArtId == artId) {
+              val newStock = stock - ca.amountOf.toInt
+
+              if (newStock >= 0) {
+                inventoryArtId -> newStock
+              } else {
+                canSell = false
+                inventoryArtId -> stock
+              }
+            } else {
+              inventoryArtId -> stock
+            }
           }
         }
-      }
-        println("Sold (1) " + productId)
+        if (canSell) {
+          inventoryMap = newInventoryMap
+          println("Sold (1) " + productId)
+        } else println("Can't sell product. Not enough stock.")
       case _ => println("Product name not found. Use command list to see name of products.")
     }
-
   }
 }

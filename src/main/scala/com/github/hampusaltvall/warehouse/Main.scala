@@ -9,7 +9,7 @@ object Main extends App {
   val products = conf.productsPath.toOption.map(loadProducts)
   val help = Seq(
     "list: Get all products and quantities of the each item that is available with the current inventory.",
-    "sell <Product Name>: Remove(Sell) a product and update the inventory accordingly.",
+    "sell: Remove(Sell) a product and update the inventory accordingly.",
     "q: Quit",
     "help: List commands.")
 
@@ -21,7 +21,9 @@ object Main extends App {
     .takeWhile(_ != "q")
     .foreach{
       case "list" => warehouseDB.listAllAvailableItems()
-      case sellCmd if sellCmd.startsWith("sell ") => warehouseDB.sellItem(sellCmd)
+      case "sell" =>
+        println("Please enter product name: ")
+        warehouseDB.sellItem(io.StdIn.readLine)
       case "help" => println(help.mkString("\n"))
       case _ => println("Command not recognized. Enter help to see available commands.")
     }
