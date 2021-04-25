@@ -11,7 +11,7 @@ lazy val commonSettings = Seq(
     Dependencies.scalaPB,
     Dependencies.Test.scalaTest,
     Dependencies.scalaPbJson4s,
-    Dependencies.scalaSbtCommand
+    Dependencies.scallop
   )
 )
 
